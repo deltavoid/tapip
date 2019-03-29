@@ -55,6 +55,7 @@ void rt_add(unsigned int net, unsigned int netmask, unsigned int gw,
 	list_add_tail(&rt->rt_list, l);
 }
 
+// init entry
 void rt_init(void)
 {
 	/* loopback */

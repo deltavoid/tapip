@@ -41,11 +41,14 @@ void netdev_free(struct netdev *dev)
 	free(dev);
 }
 
+// thread entry
+// recv interface 
 void netdev_interrupt(void)
 {
 	veth_poll();
 }
 
+// init entry
 /* create veth and lo */
 void netdev_init(void)
 {
@@ -60,6 +63,7 @@ void netdev_exit(void)
 	loop_exit();
 }
 
+// transmit interface 
 #ifdef DEBUG_PKB
 void _netdev_tx(struct netdev *dev, struct pkbuf *pkb, int len,
 		unsigned short proto, unsigned char *dst)
@@ -83,6 +87,7 @@ void netdev_tx(struct netdev *dev, struct pkbuf *pkb, int len,
 	pkb->pk_len = len + ETH_HRD_SZ;
 	/* real transmit packet */
 	dev->net_ops->xmit(dev, pkb);
+	// the life end of pkb sent.
 	free_pkb(pkb);
 }
 

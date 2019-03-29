@@ -176,6 +176,7 @@ void arp_timer(int delta)
 	arp_cache_unlock();
 }
 
+// init entry
 void arp_cache_init(void)
 {
 	int i;

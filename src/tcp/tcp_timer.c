@@ -39,6 +39,7 @@ void tcp_set_timewait_timer(struct tcp_sock *tsk)
 	get_tcp_sock(tsk);
 }
 
+// thread entry
 void tcp_timer(void)
 {
 	unsigned int i = 0;

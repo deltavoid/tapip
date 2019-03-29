@@ -108,6 +108,7 @@ static int veth_recv(struct pkbuf *pkb)
 
 static void veth_rx(void)
 {
+	// the life start of pkb recved.
 	struct pkbuf *pkb = alloc_netdev_pkb(veth);
 	if (veth_recv(pkb) > 0)
 		net_in(veth, pkb);	/* pass to upper */

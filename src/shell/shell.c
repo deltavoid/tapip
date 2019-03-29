@@ -44,6 +44,7 @@ static pthread_cond_t worker_cond;
 static pthread_mutex_t worker_mutex;
 static int work_quit;
 
+// init entry
 void shell_init(void)
 {
 	pthread_cond_init(&worker_cond, NULL);
@@ -164,6 +165,7 @@ static int parse_line(char *line, int len, char **argv)
 	return argc;
 }
 
+// thread entry
 void *shell_worker(void *none)
 {
 	while (!work_quit) {

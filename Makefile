@@ -24,8 +24,8 @@ endif
 MAKEFLAGS += --no-print-directory
 
 CC = gcc
-LD = ld
-CFLAGS = -Wall -Isrc/include
+#LD = ld
+CFLAGS =  -Wall -Isrc/include
 LDFLAGS = -pthread
 #export LD CC CFLAGS
 
@@ -73,15 +73,19 @@ CBUF_SRCS := src/lib/cbuf.c src/lib/lib.c
 #CBUF_OBJS := $(patsubst %.c, %.o, $(CBUF_SRCS))
 
 
-.PHONY: all build run clean tag lines
+.PHONY: all config build run clean tag lines
 
 all: run
 
-build: $(TAPIP_NAME) #$(CBUF_NAME)
+config:
+	@echo CFLAGS: $(CFLAGS)
+	@echo LDFLAGS: $(LDFLAGS)
+
+build: config $(TAPIP_NAME) #$(CBUF_NAME)
 
 $(TAPIP_NAME): $(TAPIP_OBJS)
-	@echo $(TAPIP_SRCS)
-	@echo $(TAPIP_OBJS)
+	@echo TAPIP_SRCS: $(TAPIP_SRCS)
+	@echo TAPIP_OBJS: $(TAPIP_OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 $(CBUF_NAME): $(CBUF_SRCS)

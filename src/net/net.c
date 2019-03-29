@@ -66,6 +66,7 @@ void net_in(struct netdev *dev, struct pkbuf *pkb)
 	}
 }
 
+// thread entry
 void net_timer(void)
 {
 	/* timer runs */

@@ -205,6 +205,7 @@ out:
 	return ret;
 }
 
+// init entry
 void socket_init(void)
 {
 	inet_init();

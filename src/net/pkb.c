@@ -50,6 +50,7 @@ struct pkbuf *copy_pkb(struct pkbuf *pkb)
 {
 	struct pkbuf *cpkb;
 	cpkb = xmalloc(pkb->pk_len);
+	// ? pkb->pk_len + sizeof(struct pkb)?
 	memcpy(cpkb, pkb, pkb->pk_len);
 	cpkb->pk_refcnt = 1;
 	list_init(&cpkb->pk_list);
