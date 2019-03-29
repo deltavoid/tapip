@@ -1,0 +1,171 @@
+ping.o: src/app/ping.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/icmp.h \
+ src/include/arp.h src/include/ip.h src/include/route.h \
+ src/include/socket.h src/include/wait.h src/include/lib.h \
+ src/include/sock.h
+snc.o: src/app/snc.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/udp.h \
+ src/include/sock.h src/include/wait.h src/include/lib.h \
+ src/include/route.h src/include/socket.h src/include/sock.h
+arp.o: src/arp/arp.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/arp.h \
+ src/include/ether.h src/include/ip.h src/include/netif.h \
+ src/include/lib.h
+arp_cache.o: src/arp/arp_cache.c src/include/ether.h src/include/arp.h \
+ src/include/ether.h src/include/ip.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/lib.h \
+ src/include/list.h src/include/compile.h
+ip_frag.o: src/ip/ip_frag.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/icmp.h \
+ src/include/lib.h src/include/list.h src/include/netcfg.h
+ip_out.o: src/ip/ip_out.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/arp.h \
+ src/include/ether.h src/include/ip.h src/include/netif.h \
+ src/include/ip.h src/include/raw.h src/include/socket.h \
+ src/include/wait.h src/include/lib.h src/include/sock.h \
+ src/include/icmp.h src/include/route.h src/include/lib.h
+ip_forward.o: src/ip/ip_forward.c src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/ether.h \
+ src/include/arp.h src/include/ether.h src/include/ip.h \
+ src/include/netif.h src/include/ip.h src/include/raw.h \
+ src/include/socket.h src/include/wait.h src/include/lib.h \
+ src/include/sock.h src/include/icmp.h src/include/route.h \
+ src/include/lib.h
+ip_in.o: src/ip/ip_in.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/arp.h \
+ src/include/ether.h src/include/ip.h src/include/netif.h \
+ src/include/ip.h src/include/raw.h src/include/socket.h \
+ src/include/wait.h src/include/lib.h src/include/sock.h \
+ src/include/udp.h src/include/tcp.h src/include/tcp_timer.h \
+ src/include/icmp.h src/include/route.h src/include/lib.h
+raw.o: src/ip/raw.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/socket.h src/include/wait.h \
+ src/include/lib.h src/include/list.h src/include/raw.h \
+ src/include/socket.h src/include/sock.h src/include/netif.h \
+ src/include/ip.h src/include/ether.h
+icmp.o: src/ip/icmp.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ip.h src/include/netif.h \
+ src/include/ether.h src/include/icmp.h src/include/route.h \
+ src/include/lib.h
+route.o: src/ip/route.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ip.h src/include/netif.h \
+ src/include/ether.h src/include/icmp.h src/include/lib.h \
+ src/include/route.h src/include/list.h src/include/netcfg.h
+lib.o: src/lib/lib.c src/include/lib.h src/include/ip.h \
+ src/include/netif.h src/include/compile.h src/include/list.h \
+ src/include/ether.h
+cbuf.o: src/lib/cbuf.c src/include/lib.h src/include/cbuf.h
+checksum.o: src/lib/checksum.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/udp.h \
+ src/include/sock.h src/include/wait.h src/include/lib.h \
+ src/include/tcp.h src/include/tcp_timer.h
+pkb.o: src/net/pkb.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/lib.h
+netdev.o: src/net/netdev.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/lib.h \
+ src/include/list.h src/include/netcfg.h
+net.o: src/net/net.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/arp.h \
+ src/include/ip.h src/include/lib.h src/include/netcfg.h
+loop.o: src/net/loop.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ip.h src/include/netif.h \
+ src/include/ether.h src/include/lib.h
+veth.o: src/net/veth.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/lib.h \
+ src/include/list.h src/include/netcfg.h src/include/tap.h
+tap.o: src/net/tap.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/lib.h \
+ src/include/ip.h src/include/netif.h src/include/ether.h \
+ src/include/tap.h
+shell.o: src/shell/shell.c src/include/lib.h src/include/arp.h \
+ src/include/ether.h src/include/ip.h src/include/netif.h \
+ src/include/compile.h src/include/list.h
+main.o: src/shell/main.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/ether.h \
+ src/include/ip.h src/include/netif.h src/include/ether.h \
+ src/include/arp.h src/include/ip.h src/include/route.h \
+ src/include/socket.h src/include/wait.h src/include/lib.h
+net_command.o: src/shell/net_command.c src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/icmp.h \
+ src/include/arp.h src/include/ip.h src/include/lib.h src/include/route.h \
+ src/include/netcfg.h src/include/sock.h src/include/wait.h \
+ src/include/lib.h src/include/cbuf.h
+ping_command.o: src/shell/ping_command.c src/include/lib.h \
+ src/include/netif.h src/include/compile.h src/include/list.h \
+ src/include/ip.h src/include/netif.h src/include/ether.h \
+ src/include/icmp.h src/include/arp.h src/include/ip.h \
+ src/include/route.h
+socket.o: src/socket/socket.c src/include/socket.h src/include/wait.h \
+ src/include/lib.h src/include/compile.h src/include/sock.h \
+ src/include/netif.h src/include/list.h src/include/inet.h \
+ src/include/socket.h src/include/list.h src/include/lib.h \
+ src/include/wait.h
+inet.o: src/socket/inet.c src/include/socket.h src/include/wait.h \
+ src/include/lib.h src/include/compile.h src/include/sock.h \
+ src/include/netif.h src/include/list.h src/include/netif.h \
+ src/include/ip.h src/include/ether.h src/include/udp.h \
+ src/include/sock.h src/include/tcp.h src/include/tcp_timer.h \
+ src/include/raw.h src/include/socket.h src/include/inet.h \
+ src/include/lib.h src/include/route.h
+sock.o: src/socket/sock.c src/include/socket.h src/include/wait.h \
+ src/include/lib.h src/include/compile.h src/include/sock.h \
+ src/include/netif.h src/include/list.h src/include/lib.h \
+ src/include/list.h
+raw_sock.o: src/socket/raw_sock.c src/include/socket.h src/include/wait.h \
+ src/include/lib.h src/include/compile.h src/include/sock.h \
+ src/include/netif.h src/include/list.h src/include/netif.h \
+ src/include/raw.h src/include/socket.h src/include/sock.h \
+ src/include/ip.h src/include/ether.h src/include/lib.h \
+ src/include/list.h src/include/wait.h
+tcp_reass.o: src/tcp/tcp_reass.c src/include/tcp.h src/include/sock.h \
+ src/include/netif.h src/include/compile.h src/include/list.h \
+ src/include/wait.h src/include/lib.h src/include/tcp_timer.h \
+ src/include/cbuf.h src/include/sock.h src/include/netif.h
+tcp_timer.o: src/tcp/tcp_timer.c src/include/tcp.h src/include/sock.h \
+ src/include/netif.h src/include/compile.h src/include/list.h \
+ src/include/wait.h src/include/lib.h src/include/tcp_timer.h \
+ src/include/lib.h
+tcp_state.o: src/tcp/tcp_state.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/tcp.h \
+ src/include/sock.h src/include/netif.h src/include/wait.h \
+ src/include/lib.h src/include/tcp_timer.h src/include/ip.h \
+ src/include/ether.h
+tcp_text.o: src/tcp/tcp_text.c src/include/tcp.h src/include/sock.h \
+ src/include/netif.h src/include/compile.h src/include/list.h \
+ src/include/wait.h src/include/lib.h src/include/tcp_timer.h \
+ src/include/ip.h src/include/ether.h src/include/ether.h \
+ src/include/netif.h src/include/route.h src/include/sock.h \
+ src/include/cbuf.h
+tcp_in.o: src/tcp/tcp_in.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/tcp.h \
+ src/include/sock.h src/include/netif.h src/include/wait.h \
+ src/include/lib.h src/include/tcp_timer.h src/include/ip.h \
+ src/include/ether.h
+tcp_sock.o: src/tcp/tcp_sock.c src/include/socket.h src/include/wait.h \
+ src/include/lib.h src/include/compile.h src/include/tcp_hash.h \
+ src/include/sock.h src/include/netif.h src/include/list.h \
+ src/include/tcp.h src/include/tcp_timer.h src/include/tcp.h \
+ src/include/ip.h src/include/ether.h src/include/netif.h \
+ src/include/cbuf.h
+tcp_out.o: src/tcp/tcp_out.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/route.h \
+ src/include/netif.h src/include/ip.h src/include/ether.h \
+ src/include/tcp.h src/include/sock.h src/include/wait.h \
+ src/include/lib.h src/include/tcp_timer.h
+udp_sock.o: src/udp/udp_sock.c src/include/lib.h src/include/socket.h \
+ src/include/wait.h src/include/lib.h src/include/compile.h \
+ src/include/sock.h src/include/netif.h src/include/list.h \
+ src/include/udp.h src/include/sock.h src/include/ip.h \
+ src/include/ether.h src/include/netif.h src/include/route.h
+udp.o: src/udp/udp.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/sock.h src/include/netif.h \
+ src/include/wait.h src/include/lib.h src/include/list.h \
+ src/include/ether.h src/include/icmp.h src/include/ip.h \
+ src/include/ether.h src/include/udp.h src/include/sock.h

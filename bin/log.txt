@@ -1,0 +1,25 @@
+[11272]loop_dev_init lo ip address: 127.0.0.1
+[11272]loop_dev_init lo netmask:    255.0.0.0
+
+[11272]getname_tap net device: tap0
+[11272]getmtu_tap mtu: 1500
+[11272]gethwaddr_tap mac addr: c6:62:b5:9f:4f:80
+[11272]setipaddr_tap set IPaddr: 10.0.0.2
+[11272]getipaddr_tap get IPaddr: 10.0.0.2
+[11272]setnetmask_tap set Netmask: 255.255.255.0
+[11272]setup_tap ifup tap0
+
+[11272]veth_dev_init veth ip address: 10.0.0.1
+[11272]veth_dev_init veth hw address: 00:34:45:67:89:ab
+
+[11272]arp_cache_init ARP CACHE INIT
+[11272]arp_cache_init ARP CACHE SEMAPHORE INIT
+
+[11272]rt_init route table init
+
+[11272]raw_init raw ip init
+
+[11272]net_stack_run thread 0: net_timer
+[11272]net_stack_run thread 1: tcp_timer
+[11272]net_stack_run thread 2: netdev_interrupt
+[11272]net_stack_run thread 3: shell worker

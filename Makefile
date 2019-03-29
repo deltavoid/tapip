@@ -1,3 +1,6 @@
+
+
+
 #### User configure  ###############
 CONFIG_DEBUG = n
 CONFIG_DEBUG_PKB = n
@@ -8,21 +11,23 @@ CONFIG_DEBUG_ICMPEXCFRAGTIME = n
 CONFIG_TOPLOGY = 2
 #### End of User configure #########
 
+
+
 # Use 'make V=1' to see the full commands
 ifeq ("$(origin V)", "command line")
 	Q =
 else
 	Q = @
 endif
-export Q
+#export Q
 
 MAKEFLAGS += --no-print-directory
 
-LD = ld
 CC = gcc
-CFLAGS = -Wall -I../include
-LFLAGS = -pthread
-export LD CC CFLAGS
+LD = ld
+CFLAGS = -Wall -Isrc/include
+LDFLAGS = -pthread
+#export LD CC CFLAGS
 
 ifeq ($(CONFIG_DEBUG), y)
 	CFLAGS += -g
@@ -54,54 +59,55 @@ else
 	CFLAGS += -DCONFIG_TOP2
 endif
 
-NET_STACK_OBJS =	shell/shell_obj.o	\
-			net/net_obj.o		\
-			arp/arp_obj.o		\
-			ip/ip_obj.o		\
-			socket/socket_obj.o	\
-			udp/udp_obj.o		\
-			tcp/tcp_obj.o		\
-			app/app_obj.o		\
-			lib/lib_obj.o
 
-all:tapip
-tapip:$(NET_STACK_OBJS)
-	@echo " [BUILD] $@"
-	$(Q)$(CC) $(LFLAGS) $^ -o $@
+SRC_DIR := src/app src/arp src/ip src/lib src/net src/shell src/socket src/tcp src/udp
+SRCS := $(wildcard $(addsuffix /*.c, $(SRC_DIR)))
+OBJS := $(patsubst %.c, %.o, $(SRCS))
 
-shell/shell_obj.o:shell/*.c
-	@make -C shell/
-net/net_obj.o:net/*.c
-	@make -C net/
-arp/arp_obj.o:arp/*.c
-	@make -C arp/
-ip/ip_obj.o:ip/*.c
-	@make -C ip/
-udp/udp_obj.o:udp/*.c
-	@make -C udp/
-tcp/tcp_obj.o:tcp/*.c
-	@make -C tcp/
-lib/lib_obj.o:lib/*.c
-	@make -C lib/
-socket/socket_obj.o:socket/*.c
-	@make -C socket/
-app/app_obj.o:app/*.c
-	@make -C app/
+TAPIP_NAME := bin/tapip
+TAPIP_SRCS := $(SRCS)
+TAPIP_OBJS := $(patsubst %.c, %.o, $(TAPIP_SRCS))
 
-test:cbuf
-# test program for circul buffer
-cbuf:lib/cbuf.c lib/lib.c
-	@echo " [CC] $@"
-	$(Q)$(CC) -DCBUF_TEST -Iinclude/ $^ -o $@
+CBUF_NAME := bin/cbuf
+CBUF_SRCS := src/lib/cbuf.c src/lib/lib.c
+#CBUF_OBJS := $(patsubst %.c, %.o, $(CBUF_SRCS))
 
-tag:
-	ctags -R *
+
+.PHONY: all build run clean tag lines
+
+all: run
+
+build: $(TAPIP_NAME) #$(CBUF_NAME)
+
+$(TAPIP_NAME): $(TAPIP_OBJS)
+	@echo $(TAPIP_SRCS)
+	@echo $(TAPIP_OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+$(CBUF_NAME): $(CBUF_SRCS)
+	@echo CBUF_SRCS:$(CBUF_SRCS)
+#	@echo CBUF_OBJS:$(CBUF_OBJS)
+	$(CC) -DCBUF_TEST -Isrc/include -o $@ $^ 
+
+include Makefile.dep
+Makefile.dep: $(SRCS)
+	$(CC) $(CFLAGS) -MM $^ > $@
+
+.c.o:
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+
+run: build
+	sudo $(TAPIP_NAME)
 
 clean:
-	find . -name *.o | xargs rm -f
-	rm -f tapip cbuf
+	rm $(OBJS) $(TAPIP_NAME) $(CBUF_NAME)
+
+
+tag:
+	ctags -R src/*
 
 lines:
 	@echo "code lines:"
-	@wc -l `find . -name \*.[ch]` | sort -n
+	@wc -l `find src/ -name \*.[ch]` | sort -n
 
