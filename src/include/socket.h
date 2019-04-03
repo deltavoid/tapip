@@ -61,4 +61,21 @@ extern int _write(struct socket *, void *, int);
 extern struct pkbuf *_recv(struct socket *);
 extern void socket_init(void);
 
+
+/*
+TCP API
+
+    socket
+    bind
+    listen
+    connect
+    accept
+
+    send
+    recv
+
+    close
+	
+*/
+
 #endif	/* socket.h */

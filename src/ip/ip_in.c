@@ -60,6 +60,7 @@ void ip_recv_route(struct pkbuf *pkb)
 	}
 }
 
+// recv pkb ip entry
 void ip_in(struct netdev *dev, struct pkbuf *pkb)
 {
 	struct ether *ehdr = (struct ether *)pkb->pk_data;

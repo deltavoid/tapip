@@ -71,11 +71,14 @@ static void tcp_recv(struct pkbuf *pkb, struct ip *iphdr, struct tcp *tcphdr)
 	/* Should we use net device to match a connection? */
 	sk = tcp_lookup_sock(iphdr->ip_src, iphdr->ip_dst,
 				tcphdr->src, tcphdr->dst);
+	
 	tcp_process(pkb, &seg, sk);
+	
 	if (sk)
 		free_sock(sk);
 }
 
+// recv pkb tcp entry
 void tcp_in(struct pkbuf *pkb)
 {
 	struct ip *iphdr = pkb2ip(pkb);

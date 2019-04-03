@@ -218,12 +218,15 @@ static struct pkbuf *inet_recv(struct socket *sock)
 struct socket_ops inet_ops = {
 	.socket = inet_socket,
 	.close = inet_close,
+
 	.listen = inet_listen,
 	.bind = inet_bind,
 	.accept = inet_accept,
 	.connect = inet_connect,
+
 	.read = inet_read,
 	.write = inet_write,
+
 	.send = inet_send,
 	.recv = inet_recv,
 };

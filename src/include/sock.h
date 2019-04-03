@@ -18,12 +18,16 @@ struct sock;
 struct sock_ops {
 	void (*recv_notify)(struct sock *);
 	void (*send_notify)(struct sock *);
+	
 	int (*send_pkb)(struct sock *, struct pkbuf *);
 	int (*send_buf)(struct sock *, void *, int, struct sock_addr *);
+	
 	struct pkbuf *(*recv)(struct sock *);
 	int (*recv_buf)(struct sock *, char *, int);
+	
 	int (*hash)(struct sock *);
 	void (*unhash)(struct sock *);
+	
 	int (*bind)(struct sock *, struct sock_addr *);
 	int (*connect)(struct sock *, struct sock_addr *);
 	int (*set_port)(struct sock *, unsigned short);

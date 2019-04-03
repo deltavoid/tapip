@@ -399,16 +399,20 @@ static void tcp_recv_notify(struct sock *sk)
 		wake_up(sk->recv_wait);
 }
 
+// tcp interface
 static struct sock_ops tcp_ops = {
 	.send_buf= tcp_send_buf,
 //	.send_pkb = tcp_send_pkb,
 	.recv_buf = tcp_recv_buf,
 	.recv_notify = tcp_recv_notify,
+
 	.listen = tcp_listen,
 	.accept = tcp_accept,
 	.connect = tcp_connect,
+
 	.hash = tcp_hash,
 	.unhash = tcp_unhash,
+
 	.set_port = tcp_set_sport,
 	.close = tcp_close,
 };
@@ -428,7 +432,10 @@ struct sock *tcp_alloc_sock(int protocol)
 		return NULL;
 	tsk = xzalloc(sizeof(*tsk));
 	alloc_socks++;
+    
+	//tcp_ops
 	tsk->sk.ops = &tcp_ops;
+	
 	tsk->state = TCP_CLOSED;
 	tsk->rcv_wnd = TCP_DEFAULT_WINDOW;
 	list_init(&tsk->listen_queue);

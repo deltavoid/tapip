@@ -280,20 +280,27 @@ static _inline void tcp_update_window(struct tcp_sock *tsk,
 		__tcp_update_window(tsk, seg);
 }
 
+// process an recv segment according to current state
+// the state machine: state * segment -> state (with operation) 
 /* Tcp state process method is implemented via RFC 793 #SEGMENT ARRIVE */
 void tcp_process(struct pkbuf *pkb, struct tcp_segment *seg, struct sock *sk)
 {
 	struct tcp_sock *tsk = tcpsk(sk);
 	struct tcp *tcphdr = seg->tcphdr;
 	tcp_dbg_state(tsk);
+	
 	if (!tsk || tsk->state == TCP_CLOSED)
 		return tcp_closed(tsk, pkb, seg);
+	
 	if (tsk->state == TCP_LISTEN)
 		return tcp_listen(pkb, seg, tsk);
+	
 	if (tsk->state == TCP_SYN_SENT)
 		return tcp_synsent(pkb, seg, tsk);
+	
 	if (tsk->state >= TCP_MAX_STATE)
 		goto drop;
+	
 	/* first check sequence number */
 	tcpsdbg("1. check seq");
 	if (seq_check(seg, tsk) < 0) {
@@ -302,6 +309,7 @@ void tcp_process(struct pkbuf *pkb, struct tcp_segment *seg, struct sock *sk)
 			tsk->flags |= TCP_F_ACKNOW; /*reply ACK seq=snd.nxt, ack=rcv.nxt*/
 		goto drop;
 	}
+	
 	/* second check the RST bit */
 	tcpsdbg("2. check rst");
 	if (tcphdr->rst) {
@@ -338,8 +346,10 @@ void tcp_process(struct pkbuf *pkb, struct tcp_segment *seg, struct sock *sk)
 		tcp_unbhash(tsk);
 		goto drop;
 	}
+	
 	/* third check security and precedence (ignored) */
 	tcpsdbg("3. NO check security and precedence");
+	
 	/* fourth check the SYN bit */
 	tcpsdbg("4. check syn");
 	if (tcphdr->syn) {
@@ -361,6 +371,7 @@ void tcp_process(struct pkbuf *pkb, struct tcp_segment *seg, struct sock *sk)
 		tcp_set_state(tsk, TCP_CLOSED);
 		free_sock(&tsk->sk);
 	}
+	
 	/* fifth check the ACK field */
 	tcpsdbg("5. check ack");
 	/*
@@ -505,6 +516,7 @@ void tcp_process(struct pkbuf *pkb, struct tcp_segment *seg, struct sock *sk)
 			break;
 		}
 	}
+	
 	/* seventh process the segment text */
 	tcpsdbg("7. segment text");
 	switch (tsk->state) {
@@ -521,6 +533,7 @@ void tcp_process(struct pkbuf *pkb, struct tcp_segment *seg, struct sock *sk)
 	 * OTHER STATES: segment is ignored!
 	 */
 	}
+	
 	/* eighth check the FIN bit */
 	tcpsdbg("8. check fin");
 	if (tcphdr->fin) {

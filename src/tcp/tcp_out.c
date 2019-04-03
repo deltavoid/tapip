@@ -51,6 +51,8 @@ void tcp_send_out(struct tcp_sock *tsk, struct pkbuf *pkb, struct tcp_segment *s
 		return;
 	}
 	tcp_set_checksum(iphdr, tcphdr);
+
+	// ip xmit interface 
 	ip_send_out(pkb);
 }
 

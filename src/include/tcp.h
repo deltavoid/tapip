@@ -147,26 +147,38 @@ static _inline struct tcp_sock *tcp_accept_dequeue(struct tcp_sock *tsk)
 }
 
 extern void tcp_in(struct pkbuf *);
+
 extern struct sock *tcp_lookup_sock(unsigned int, unsigned int, unsigned int, unsigned int);
+
 extern void tcp_process(struct pkbuf *, struct tcp_segment *, struct sock *);
+
 extern struct sock *tcp_alloc_sock(int);
+
 extern int tcp_hash(struct sock *);
 extern void tcp_unhash(struct sock *);
 extern void tcp_unbhash(struct tcp_sock *);
+
 extern void tcp_init(void);
+
 extern struct tcp_sock *get_tcp_sock(struct tcp_sock *);
+
 extern void tcp_send_reset(struct tcp_sock *, struct tcp_segment *);
 extern void tcp_send_synack(struct tcp_sock *, struct tcp_segment *);
 extern void tcp_send_ack(struct tcp_sock *, struct tcp_segment *);
 extern void tcp_send_syn(struct tcp_sock *, struct tcp_segment *);
 extern void tcp_send_fin(struct tcp_sock *);
+
 extern void tcp_recv_text(struct tcp_sock *, struct tcp_segment *, struct pkbuf *);
+
 extern void tcp_free_buf(struct tcp_sock *);
 extern int tcp_write_buf(struct tcp_sock *, void *, unsigned int);
+
 extern void tcp_free_reass_head(struct tcp_sock *);
 extern void tcp_segment_reass(struct tcp_sock *, struct tcp_segment *, struct pkbuf *);
+
 extern void tcp_send_out(struct tcp_sock *, struct pkbuf *, struct tcp_segment *);
 extern int tcp_send_text(struct tcp_sock *, void *, int);
+
 
 extern unsigned int alloc_new_iss(void);
 extern int tcp_id;

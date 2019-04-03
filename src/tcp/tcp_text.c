@@ -34,6 +34,8 @@ int tcp_write_buf(struct tcp_sock *tsk, void *data, unsigned int len)
 	return rlen;
 }
 
+
+//tcp recv thread dst?
 /*
  * Situation is here:
  *  1. PUSH and segment text
@@ -90,6 +92,7 @@ static void tcp_init_text(struct tcp_sock *tsk, struct pkbuf *pkb,
 			_ntohl(tcphdr->seq), size, _ntohs(tcphdr->window),
 			ipfmt(tsk->sk.sk_daddr), _ntohs(tcphdr->dst));
 }
+
 
 int tcp_send_text(struct tcp_sock *tsk, void *buf, int len)
 {
