@@ -7,6 +7,8 @@
 
 #include "netcfg.h"
 
+#include "log.h"
+
 static LIST_HEAD(rt_head);
 
 struct rtentry *rt_lookup(unsigned int ipaddr)
@@ -58,15 +60,25 @@ void rt_add(unsigned int net, unsigned int netmask, unsigned int gw,
 // init entry
 void rt_init(void)
 {
+	debug("0");
 	/* loopback */
 	rt_add(LOCALNET(loop), loop->net_mask, 0, 0, RT_LOCALHOST, loop);
+	
+	debug("1");
 	/* local host */
-	rt_add(veth->net_ipaddr, 0xffffffff, 0, 0, RT_LOCALHOST, loop);
+	//rt_add(veth->net_ipaddr, 0xffffffff, 0, 0, RT_LOCALHOST, loop);
+	rt_add(ixy->net_ipaddr, 0xffffffff, 0, 0, RT_LOCALHOST, loop);
+	
+	debug("2");
 	/* local net */
-	rt_add(LOCALNET(veth), veth->net_mask, 0, 0, RT_NONE, veth);
+	//rt_add(LOCALNET(veth), veth->net_mask, 0, 0, RT_NONE, veth);
+	rt_add(LOCALNET(ixy), ixy->net_mask, 0, 0, RT_NONE, veth);
+	
 #ifndef CONFIG_TOP1
+	debug("3");
 	/* default route: next-hop is tap ipaddr */
-	rt_add(0, 0, tap->dev.net_ipaddr, 0, RT_DEFAULT, veth);
+	//rt_add(0, 0, tap->dev.net_ipaddr, 0, RT_DEFAULT, veth);
+	rt_add(0, 0, FAKE_TAP_ADDR, 0, RT_DEFAULT, ixy);
 #else
 	rt_add(0, 0, DEFAULT_GW, 0, RT_DEFAULT, veth);
 #endif

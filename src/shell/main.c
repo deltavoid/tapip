@@ -6,6 +6,8 @@
 #include "route.h"
 #include "socket.h"
 
+#include "log.h"
+
 extern void shell_master(char *);
 extern void *shell_worker(void *);
 extern void shell_init(void);
@@ -51,28 +53,46 @@ void net_stack_run(void)
 	threads[3] = newthread((pfunc_t)shell_worker);
 	dbg("thread 3: shell worker");
 	/* net shell runs! */
-	shell_master(NULL);
+	//shell_master(NULL);
+
+	struct command *cmd = &cmds[4];
+	
 }
 
 void net_stack_exit(void)
 {
+	debug("0");
 	if (pthread_cancel(threads[0]))
 		perror("kill child 0");
+
+	debug("1");
 	if (pthread_cancel(threads[1]))
 		perror("kill child 1");
+	
+	debug("2");
 	if (pthread_cancel(threads[2]))
 		perror("kill child 2");
+	
+	debug("3");
 	/* shell work will be killed by shell master */
 	if (pthread_join(threads[3], NULL))
 		perror("kill child 3");
-	netdev_exit();
+	//netdev_exit();
 }
+
+
+int ixy_test(const char* addr);
 
 int main(int argc, char **argv)
 {
+	//const char ixy_addr[] = "0000:02:00.0";
+	//ixy_test(ixy_addr);
+
+
 	net_stack_init();
 	net_stack_run();
-	net_stack_exit();
+	
+	//net_stack_exit();
 	dbg("wait system exit");
 	/* FIXME: release all alloced resources */
 	return 0;

@@ -21,6 +21,10 @@ ip_frag.o: src/ip/ip_frag.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/icmp.h \
  src/include/lib.h src/include/list.h src/include/netcfg.h
+icmp.o: src/ip/icmp.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ip.h src/include/netif.h \
+ src/include/ether.h src/include/icmp.h src/include/route.h \
+ src/include/lib.h
 ip_out.o: src/ip/ip_out.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/arp.h \
  src/include/ether.h src/include/ip.h src/include/netif.h \
@@ -46,14 +50,11 @@ raw.o: src/ip/raw.c src/include/netif.h src/include/compile.h \
  src/include/lib.h src/include/list.h src/include/raw.h \
  src/include/socket.h src/include/sock.h src/include/netif.h \
  src/include/ip.h src/include/ether.h
-icmp.o: src/ip/icmp.c src/include/netif.h src/include/compile.h \
- src/include/list.h src/include/ip.h src/include/netif.h \
- src/include/ether.h src/include/icmp.h src/include/route.h \
- src/include/lib.h
 route.o: src/ip/route.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ip.h src/include/netif.h \
  src/include/ether.h src/include/icmp.h src/include/lib.h \
- src/include/route.h src/include/list.h src/include/netcfg.h
+ src/include/route.h src/include/list.h src/include/netcfg.h \
+ ../ixy.c2/src/log.h
 lib.o: src/lib/lib.c src/include/lib.h src/include/ip.h \
  src/include/netif.h src/include/compile.h src/include/list.h \
  src/include/ether.h
@@ -65,13 +66,19 @@ checksum.o: src/lib/checksum.c src/include/lib.h src/include/netif.h \
  src/include/tcp.h src/include/tcp_timer.h
 pkb.o: src/net/pkb.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/lib.h
-netdev.o: src/net/netdev.c src/include/netif.h src/include/compile.h \
- src/include/list.h src/include/ether.h src/include/lib.h \
- src/include/list.h src/include/netcfg.h
 net.o: src/net/net.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/arp.h \
  src/include/ip.h src/include/lib.h src/include/netcfg.h
+ixy.o: src/net/ixy.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/lib.h \
+ src/include/list.h src/include/netcfg.h ../ixy.c2/src/stats.h \
+ ../ixy.c2/src/driver/device.h ../ixy.c2/src/log.h ../ixy.c2/src/memory.h \
+ ../ixy.c2/src/driver/device.h
+netdev.o: src/net/netdev.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/lib.h \
+ src/include/list.h src/include/netcfg.h
 loop.o: src/net/loop.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ip.h src/include/netif.h \
  src/include/ether.h src/include/lib.h
@@ -83,14 +90,18 @@ tap.o: src/net/tap.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/lib.h \
  src/include/ip.h src/include/netif.h src/include/ether.h \
  src/include/tap.h
+ixy_test.o: src/net/ixy_test.c ../ixy.c2/src/stats.h \
+ ../ixy.c2/src/driver/device.h ../ixy.c2/src/log.h ../ixy.c2/src/memory.h \
+ ../ixy.c2/src/driver/device.h
 shell.o: src/shell/shell.c src/include/lib.h src/include/arp.h \
  src/include/ether.h src/include/ip.h src/include/netif.h \
- src/include/compile.h src/include/list.h
+ src/include/compile.h src/include/list.h ../ixy.c2/src/log.h
 main.o: src/shell/main.c src/include/lib.h src/include/netif.h \
  src/include/compile.h src/include/list.h src/include/ether.h \
  src/include/ip.h src/include/netif.h src/include/ether.h \
  src/include/arp.h src/include/ip.h src/include/route.h \
- src/include/socket.h src/include/wait.h src/include/lib.h
+ src/include/socket.h src/include/wait.h src/include/lib.h \
+ ../ixy.c2/src/log.h
 net_command.o: src/shell/net_command.c src/include/netif.h \
  src/include/compile.h src/include/list.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/icmp.h \

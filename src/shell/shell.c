@@ -3,6 +3,7 @@
  */
 #include "lib.h"
 #include "arp.h"
+#include "log.h"
 
 static void signal_init(void);
 /* extern builtin command handlers */
@@ -252,14 +253,26 @@ void shell_master(char *prompt_str)
 	char *argv[16];
 	int argc;
 
+    debug("0");
 	/* shell master */
 	if (prompt_str && *prompt_str)
 		prompt = prompt_str;
+	
+	debug("1");
 	signal_init();
+
+    debug("2");
 	while (!master_quit) {
+		debug("3");
 		print_prompt();
+
+		debug("4");
 		linelen = get_line(linebuf, 256);
+
+		debug("5");
 		argc = parse_line(linebuf, linelen, argv);
+
+		debug("6");
 		if (argc > 0)
 			parse_args(argc, argv);
 		else if (argc < 0)

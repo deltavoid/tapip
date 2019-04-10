@@ -69,6 +69,7 @@ static int veth_dev_init(struct netdev *dev)
 	return 0;
 }
 
+// tx 
 static int veth_xmit(struct netdev *dev, struct pkbuf *pkb)
 {
 	int l;
@@ -90,6 +91,7 @@ static struct netdev_ops veth_ops = {
 	.exit = veth_dev_exit,
 };
 
+// rx
 static int veth_recv(struct pkbuf *pkb)
 {
 	int l;

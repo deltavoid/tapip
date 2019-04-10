@@ -45,7 +45,9 @@ void netdev_free(struct netdev *dev)
 // recv interface 
 void netdev_interrupt(void)
 {
-	veth_poll();
+	//veth_poll();
+	ixy_poll();
+	//while (true);
 }
 
 // init entry
@@ -54,13 +56,15 @@ void netdev_init(void)
 {
 	list_init(&net_devices);
 	loop_init();
-	veth_init();
+	//veth_init();
+	ixy_driver_init();
 }
 
 void netdev_exit(void)
 {
-	veth_exit();
+	//veth_exit();
 	loop_exit();
+	ixy_driver_exit();
 }
 
 // transmit interface 

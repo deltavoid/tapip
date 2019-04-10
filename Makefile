@@ -23,10 +23,15 @@ endif
 
 MAKEFLAGS += --no-print-directory
 
+IXY     := ../ixy.c2
+IXY_INC := $(IXY)/src
+IXY_LIB_DIR := $(IXY)/bin
+IXY_LIBS := $(IXY_LIB_DIR)/libixy.o
+
 CC = gcc
 #LD = ld
-CFLAGS =  -Wall -Isrc/include
-LDFLAGS = -pthread
+CFLAGS =  -Wall -Isrc/include -I $(IXY_INC)
+LDFLAGS = -pthread -L $(IXY_LIB_DIR)
 #export LD CC CFLAGS
 
 ifeq ($(CONFIG_DEBUG), y)
@@ -60,6 +65,7 @@ else
 endif
 
 
+
 SRC_DIR := src/app src/arp src/ip src/lib src/net src/shell src/socket src/tcp src/udp
 SRCS := $(wildcard $(addsuffix /*.c, $(SRC_DIR)))
 OBJS := $(patsubst %.c, %.o, $(SRCS))
@@ -83,10 +89,10 @@ config:
 
 build: config $(TAPIP_NAME) #$(CBUF_NAME)
 
-$(TAPIP_NAME): $(TAPIP_OBJS)
+$(TAPIP_NAME): $(TAPIP_OBJS) 
 	@echo TAPIP_SRCS: $(TAPIP_SRCS)
 	@echo TAPIP_OBJS: $(TAPIP_OBJS)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	$(CC) -o $@ $^  $(LDFLAGS) $(IXY_LIBS)
 
 $(CBUF_NAME): $(CBUF_SRCS)
 	@echo CBUF_SRCS:$(CBUF_SRCS)
