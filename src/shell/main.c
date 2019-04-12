@@ -11,6 +11,17 @@
 // extern void shell_init(void);
 extern void tcp_timer(void);
 
+
+/* extern net stack command handlers */
+extern void arpcache(int, char **);
+extern void netdebug(int, char **);
+extern void ifconfig(int, char **);
+extern void stat(int, char **);
+extern void route(int, char **);
+extern void ping(int, char **);
+extern void ping2(int, char **);
+extern void snc(int, char **);
+
 /*
  * 0 timer for ip and arp
  * 1 timer for tcp
@@ -56,6 +67,9 @@ void net_stack_run(void)
 	// dbg("thread 3: shell worker");
 	// /* net shell runs! */
 	// shell_master(NULL);
+
+    char cmd[] = "ping 10.0.0.2";
+	inner_shell(ping, cmd, sizeof(cmd));
 }
 
 void net_stack_exit(void)

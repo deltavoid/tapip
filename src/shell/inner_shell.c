@@ -5,15 +5,7 @@
 #include "arp.h"
 
 
-/* extern net stack command handlers */
-extern void arpcache(int, char **);
-extern void netdebug(int, char **);
-extern void ifconfig(int, char **);
-extern void stat(int, char **);
-extern void route(int, char **);
-extern void ping(int, char **);
-extern void ping2(int, char **);
-extern void snc(int, char **);
+
 
 
 
