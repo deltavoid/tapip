@@ -21,6 +21,10 @@ ip_frag.o: src/ip/ip_frag.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/icmp.h \
  src/include/lib.h src/include/list.h src/include/netcfg.h
+icmp.o: src/ip/icmp.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ip.h src/include/netif.h \
+ src/include/ether.h src/include/icmp.h src/include/route.h \
+ src/include/lib.h
 ip_out.o: src/ip/ip_out.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/arp.h \
  src/include/ether.h src/include/ip.h src/include/netif.h \
@@ -46,10 +50,6 @@ raw.o: src/ip/raw.c src/include/netif.h src/include/compile.h \
  src/include/lib.h src/include/list.h src/include/raw.h \
  src/include/socket.h src/include/sock.h src/include/netif.h \
  src/include/ip.h src/include/ether.h
-icmp.o: src/ip/icmp.c src/include/netif.h src/include/compile.h \
- src/include/list.h src/include/ip.h src/include/netif.h \
- src/include/ether.h src/include/icmp.h src/include/route.h \
- src/include/lib.h
 route.o: src/ip/route.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ip.h src/include/netif.h \
  src/include/ether.h src/include/icmp.h src/include/lib.h \
@@ -65,13 +65,13 @@ checksum.o: src/lib/checksum.c src/include/lib.h src/include/netif.h \
  src/include/tcp.h src/include/tcp_timer.h
 pkb.o: src/net/pkb.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/lib.h
-netdev.o: src/net/netdev.c src/include/netif.h src/include/compile.h \
- src/include/list.h src/include/ether.h src/include/lib.h \
- src/include/list.h src/include/netcfg.h
 net.o: src/net/net.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/arp.h \
  src/include/ip.h src/include/lib.h src/include/netcfg.h
+netdev.o: src/net/netdev.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/lib.h \
+ src/include/list.h src/include/netcfg.h
 loop.o: src/net/loop.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ip.h src/include/netif.h \
  src/include/ether.h src/include/lib.h
