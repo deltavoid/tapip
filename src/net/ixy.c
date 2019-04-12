@@ -37,7 +37,8 @@ static const uint8_t pkt_data[] = {
 	(PKT_SIZE - 20 - 14) >> 8,          // udp len excluding ip & ethernet, high byte
 	(PKT_SIZE - 20 - 14) & 0xFF,        // udp len exlucding ip & ethernet, low byte
 	0x00, 0x00,                         // udp checksum, optional
-	'i', 'x', 'y'                       // payload
+	'i', 'x', 'y',                       // payload
+    ' ', 'h', 'e', 'l', 'l', 'o',
 	// rest of the payload is zero-filled because mempools guarantee empty bufs
 };
 
@@ -143,6 +144,36 @@ static int ixy_dev_init(struct netdev *dev)
 // }
 static int ixy_xmit(struct netdev *dev, struct pkbuf *pkb)
 {
+	struct pkt_buf* pkt = pkt_buf_alloc(mempool);
+	pkt->size = pkb->pk_len;
+	memcpy(pkt->data, pkb->pk_data, pkb->pk_len);
+
+	tx_bufs[0] = pkt;
+	ixy_tx_batch_busy_wait(ixy_dev, 0, tx_bufs, BATCH_SIZE);
+
+	return pkb->pk_len;
+}
+
+void ixy_xmit_test()
+{
+	dbg("ixy_xmit_test");
+	struct pkbuf* pkb = alloc_pkb(PKT_SIZE);
+	memcpy(pkb->pk_data, pkt_data, sizeof(pkt_data));
+	ixy_xmit(ixy, pkb);
+	free_pkb(pkb);
+}
+
+extern void netdev_tx(struct netdev *dev, struct pkbuf *pkb, int len,
+		unsigned short proto, unsigned char *dst);
+
+void netdev_tx_test()
+{
+	dbg("netdev_tx_test");
+	struct pkbuf* pkb = alloc_pkb(PKT_SIZE);
+	memcpy(pkb->pk_data, pkt_data, sizeof(pkt_data));
+	memset(pkb->pk_data, 0, ETH_HRD_SZ);
+	netdev_tx(ixy, pkb, PKT_SIZE -  ETH_HRD_SZ, 0x08, "\x00\x34\x45\x67\x89\xef");
+
 }
 
 

@@ -12,6 +12,8 @@
 extern void tcp_timer(void);
 
 extern void ixy_test(const char*);
+extern void ixy_xmit_test();
+extern void netdev_tx_test();
 
 
 /* extern net stack command handlers */
@@ -75,6 +77,10 @@ void net_stack_run(void)
 
     // char ixy_addr[] = "0000:02:00.0";
 	// ixy_test(ixy_addr);
+
+	//ixy_xmit_test();
+
+	netdev_tx_test();
 }
 
 void net_stack_exit(void)
