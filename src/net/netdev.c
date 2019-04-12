@@ -12,10 +12,15 @@
 struct list_head net_devices;
 
 extern void loop_init(void);
-extern void veth_init(void);
 extern void loop_exit(void);
+
+extern void veth_init(void);
 extern void veth_exit(void);
 extern void veth_poll(void);
+
+extern void ixy_driver_init(void);
+extern void ixy_driver_exit(void);
+extern void ixy_poll(void);
 
 /* Alloc localhost net devices */
 struct netdev *netdev_alloc(char *devstr, struct netdev_ops *netops)
@@ -45,7 +50,8 @@ void netdev_free(struct netdev *dev)
 // recv interface 
 void netdev_interrupt(void)
 {
-	veth_poll();
+	//veth_poll();
+	ixy_poll();
 }
 
 // init entry
@@ -55,10 +61,12 @@ void netdev_init(void)
 	list_init(&net_devices);
 	loop_init();
 	veth_init();
+	ixy_driver_init();
 }
 
 void netdev_exit(void)
 {
+	ixy_driver_exit();
 	veth_exit();
 	loop_exit();
 }

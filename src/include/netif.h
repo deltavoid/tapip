@@ -88,6 +88,7 @@ static _inline unsigned int _htonl(unsigned int host)
 
 extern struct tapdev *tap;
 extern struct netdev *veth;
+extern struct netdev *ixy;
 extern struct netdev *loop;
 
 extern void netdev_init(void);

@@ -69,6 +69,12 @@ net.o: src/net/net.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/arp.h \
  src/include/ip.h src/include/lib.h src/include/netcfg.h
+ixy.o: src/net/ixy.c src/include/netif.h src/include/compile.h \
+ src/include/list.h src/include/ether.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/lib.h \
+ src/include/list.h src/include/netcfg.h ../ixy.c2/src/stats.h \
+ ../ixy.c2/src/driver/device.h ../ixy.c2/src/log.h ../ixy.c2/src/memory.h \
+ ../ixy.c2/src/driver/device.h
 netdev.o: src/net/netdev.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/lib.h \
  src/include/list.h src/include/netcfg.h

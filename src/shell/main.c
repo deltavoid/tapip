@@ -73,8 +73,8 @@ void net_stack_run(void)
     // char cmd[] = "ping 10.0.0.2";
 	// inner_shell(ping, cmd, sizeof(cmd));
 
-    char ixy_addr[] = "0000:02:00.0";
-	ixy_test(ixy_addr);
+    // char ixy_addr[] = "0000:02:00.0";
+	// ixy_test(ixy_addr);
 }
 
 void net_stack_exit(void)
