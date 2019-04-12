@@ -23,9 +23,16 @@ endif
 
 MAKEFLAGS += --no-print-directory
 
+IXY     := ../ixy.c2
+IXY_INC := $(IXY)/src
+IXY_LIB_DIR := $(IXY)/bin
+IXY_LIBS := $(IXY_LIB_DIR)/libixy.o
+
+
+
 CC = gcc
 #LD = ld
-CFLAGS =  -Wall -Isrc/include
+CFLAGS =  -Wall -Isrc/include -I $(IXY_INC)
 LDFLAGS = -pthread
 #export LD CC CFLAGS
 
@@ -86,7 +93,7 @@ build: config $(TAPIP_NAME) #$(CBUF_NAME)
 $(TAPIP_NAME): $(TAPIP_OBJS)
 	@echo TAPIP_SRCS: $(TAPIP_SRCS)
 	@echo TAPIP_OBJS: $(TAPIP_OBJS)
-	$(CC) -o $@ $^ $(LDFLAGS)
+	$(CC) -o $@ $^ $(LDFLAGS) $(IXY_LIBS)
 
 $(CBUF_NAME): $(CBUF_SRCS)
 	@echo CBUF_SRCS:$(CBUF_SRCS)

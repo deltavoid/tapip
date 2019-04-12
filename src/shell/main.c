@@ -11,6 +11,8 @@
 // extern void shell_init(void);
 extern void tcp_timer(void);
 
+extern void ixy_test(const char*);
+
 
 /* extern net stack command handlers */
 extern void arpcache(int, char **);
@@ -68,8 +70,11 @@ void net_stack_run(void)
 	// /* net shell runs! */
 	// shell_master(NULL);
 
-    char cmd[] = "ping 10.0.0.2";
-	inner_shell(ping, cmd, sizeof(cmd));
+    // char cmd[] = "ping 10.0.0.2";
+	// inner_shell(ping, cmd, sizeof(cmd));
+
+    char ixy_addr[] = "0000:02:00.0";
+	ixy_test(ixy_addr);
 }
 
 void net_stack_exit(void)

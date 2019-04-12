@@ -83,6 +83,9 @@ tap.o: src/net/tap.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/lib.h \
  src/include/ip.h src/include/netif.h src/include/ether.h \
  src/include/tap.h
+ixy_test.o: src/net/ixy_test.c ../ixy.c2/src/stats.h \
+ ../ixy.c2/src/driver/device.h ../ixy.c2/src/log.h ../ixy.c2/src/memory.h \
+ ../ixy.c2/src/driver/device.h
 main.o: src/shell/main.c src/include/lib.h src/include/netif.h \
  src/include/compile.h src/include/list.h src/include/ether.h \
  src/include/ip.h src/include/netif.h src/include/ether.h \
