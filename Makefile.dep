@@ -83,25 +83,20 @@ tap.o: src/net/tap.c src/include/netif.h src/include/compile.h \
  src/include/list.h src/include/ether.h src/include/lib.h \
  src/include/ip.h src/include/netif.h src/include/ether.h \
  src/include/tap.h
-shell.o: src/shell/shell.c src/include/lib.h src/include/arp.h \
- src/include/ether.h src/include/ip.h src/include/netif.h \
- src/include/compile.h src/include/list.h
 main.o: src/shell/main.c src/include/lib.h src/include/netif.h \
  src/include/compile.h src/include/list.h src/include/ether.h \
  src/include/ip.h src/include/netif.h src/include/ether.h \
  src/include/arp.h src/include/ip.h src/include/route.h \
  src/include/socket.h src/include/wait.h src/include/lib.h
+inner_shell.o: src/shell/inner_shell.c src/include/lib.h \
+ src/include/arp.h src/include/ether.h src/include/ip.h \
+ src/include/netif.h src/include/compile.h src/include/list.h
 net_command.o: src/shell/net_command.c src/include/netif.h \
  src/include/compile.h src/include/list.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/icmp.h \
  src/include/arp.h src/include/ip.h src/include/lib.h src/include/route.h \
  src/include/netcfg.h src/include/sock.h src/include/wait.h \
  src/include/lib.h src/include/cbuf.h
-ping_command.o: src/shell/ping_command.c src/include/lib.h \
- src/include/netif.h src/include/compile.h src/include/list.h \
- src/include/ip.h src/include/netif.h src/include/ether.h \
- src/include/icmp.h src/include/arp.h src/include/ip.h \
- src/include/route.h
 socket.o: src/socket/socket.c src/include/socket.h src/include/wait.h \
  src/include/lib.h src/include/compile.h src/include/sock.h \
  src/include/netif.h src/include/list.h src/include/inet.h \

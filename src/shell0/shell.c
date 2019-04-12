@@ -258,8 +258,10 @@ void shell_master(char *prompt_str)
 	signal_init();
 	while (!master_quit) {
 		print_prompt();
+		
 		linelen = get_line(linebuf, 256);
 		argc = parse_line(linebuf, linelen, argv);
+		
 		if (argc > 0)
 			parse_args(argc, argv);
 		else if (argc < 0)
