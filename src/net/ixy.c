@@ -207,6 +207,15 @@ static struct netdev_ops ixy_ops = {
 // }
 static int ixy_recv(struct pkbuf *pkb)
 {
+	uint32_t num_rx = ixy_rx_batch(ixy_dev, 0, rx_bufs, BATCH_SIZE);
+	if  (num_rx <= 0)  return 0;
+
+	struct pkt_buf* pkt = rx_bufs[0];
+	pkb->pk_len = pkt->size;
+	memcpy(pkb->pk_data, pkt->data, pkt->size);
+	pkt_buf_free(pkt);
+	
+	return pkb->pk_len;
 }
 
 
@@ -225,7 +234,9 @@ static void ixy_rx(void)
 	struct pkbuf *pkb = alloc_netdev_pkb(ixy);
 	if (ixy_recv(pkb) > 0)
 	{
-		net_in(ixy, pkb);	/* pass to upper */
+		pkbdbg(pkb);
+		free_pkb(pkb);	
+		//net_in(ixy, pkb);	/* pass to upper */
 	}
 	else
 		free_pkb(pkb);	

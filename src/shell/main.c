@@ -81,6 +81,7 @@ void net_stack_run(void)
 	//ixy_xmit_test();
 
 	netdev_tx_test();
+	while (true) sleep(1);
 }
 
 void net_stack_exit(void)
