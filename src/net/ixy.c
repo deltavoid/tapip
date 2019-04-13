@@ -237,7 +237,7 @@ static void ixy_rx(void)
 		dbg("ixy_rx");
 		//pkbdbg(pkb);
 		//free_pkb(pkb);	
-		//net_in(ixy, pkb);	/* pass to upper */
+		net_in(ixy, pkb);	/* pass to upper */
 	}
 	else
 		free_pkb(pkb);	

@@ -72,16 +72,16 @@ void net_stack_run(void)
 	// /* net shell runs! */
 	// shell_master(NULL);
 
-    // char cmd[] = "ping 10.0.0.2";
-	// inner_shell(ping, cmd, sizeof(cmd));
+    char cmd[] = "ping 10.0.1.2";
+	inner_shell(ping, cmd, sizeof(cmd));
 
     // char ixy_addr[] = "0000:02:00.0";
 	// ixy_test(ixy_addr);
 
 	//ixy_xmit_test();
 
-	netdev_tx_test();
-	while (true) sleep(1);
+	// netdev_tx_test();
+	// while (true) sleep(1);
 }
 
 void net_stack_exit(void)

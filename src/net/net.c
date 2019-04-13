@@ -53,12 +53,15 @@ void net_in(struct netdev *dev, struct pkbuf *pkb)
 	case ETH_P_RARP:
 //		rarp_in(dev, pkb);
 		break;
+	
 	case ETH_P_ARP:
 		arp_in(dev, pkb);
 		break;
+	
 	case ETH_P_IP:
 		ip_in(dev, pkb);
 		break;
+	
 	default:
 		l2dbg("drop unkown-type packet");
 		free_pkb(pkb);
