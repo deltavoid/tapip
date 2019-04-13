@@ -60,14 +60,14 @@ void netdev_init(void)
 {
 	list_init(&net_devices);
 	loop_init();
-	veth_init();
+	//veth_init();
 	ixy_driver_init();
 }
 
 void netdev_exit(void)
 {
 	ixy_driver_exit();
-	veth_exit();
+	//veth_exit();
 	loop_exit();
 }
 

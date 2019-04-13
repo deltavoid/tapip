@@ -16,8 +16,8 @@
 #define FAKE_IPADDR 0x0100000a		/* 10.0.0.1 */
 #define FAKE_HWADDR "\x00\x34\x45\x67\x89\xab"
 
-#define FAKE_IXY_PEER_ADDR 0x0400000a	/* 10.0.0.4 */
-#define FAKE_IXY_IPADDR 0x0300000a		/* 10.0.0.3 */
+#define FAKE_IXY_PEER_ADDR 0x0201000a	/* 10.0.1.2 */
+#define FAKE_IXY_IPADDR 0x0101000a		/* 10.0.1.1 */
 #define FAKE_IXY_HWADDR "\x00\x34\x45\x67\x89\xcd"
 #endif
 
