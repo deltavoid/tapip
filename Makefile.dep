@@ -1,3 +1,8 @@
+echo.o: src/app/echo.c src/include/lib.h src/include/netif.h \
+ src/include/compile.h src/include/list.h src/include/ip.h \
+ src/include/netif.h src/include/ether.h src/include/route.h \
+ src/include/socket.h src/include/wait.h src/include/lib.h \
+ src/include/sock.h src/include/netcfg.h
 ping.o: src/app/ping.c src/include/lib.h src/include/netif.h \
  src/include/compile.h src/include/list.h src/include/ip.h \
  src/include/netif.h src/include/ether.h src/include/icmp.h \

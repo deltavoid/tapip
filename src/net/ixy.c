@@ -234,7 +234,7 @@ static void ixy_rx(void)
 	struct pkbuf *pkb = alloc_netdev_pkb(ixy);
 	if (ixy_recv(pkb) > 0)
 	{
-		dbg("ixy_rx");
+		//dbg("ixy_rx");
 		//pkbdbg(pkb);
 		//free_pkb(pkb);	
 		net_in(ixy, pkb);	/* pass to upper */

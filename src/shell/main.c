@@ -14,6 +14,7 @@ extern void tcp_timer(void);
 extern void ixy_test(const char*);
 extern void ixy_xmit_test();
 extern void netdev_tx_test();
+extern void echo();
 
 
 /* extern net stack command handlers */
@@ -83,8 +84,10 @@ void net_stack_run(void)
 	// netdev_tx_test();
 	// while (true) sleep(1);
 
-	char cmd[] = "snc -b 10.0.1.1:1234";
-	inner_shell(snc, cmd, sizeof(cmd));
+	// char cmd[] = "snc -b 10.0.1.1:1234";
+	// inner_shell(snc, cmd, sizeof(cmd));
+
+	echo();
 }
 
 void net_stack_exit(void)
