@@ -22,6 +22,8 @@ extern void ping(int, char **);
 extern void ping2(int, char **);
 extern void snc(int, char **);
 
+extern void echo();
+
 /*
  * 0 timer for ip and arp
  * 1 timer for tcp
@@ -68,8 +70,10 @@ void net_stack_run(void)
 	// /* net shell runs! */
 	// shell_master(NULL);
 
-    char cmd[] = "ping 10.0.0.2";
-	inner_shell(ping, cmd, sizeof(cmd));
+    // char cmd[] = "ping 10.0.0.2";
+	// inner_shell(ping, cmd, sizeof(cmd));
+
+	echo();
 }
 
 void net_stack_exit(void)

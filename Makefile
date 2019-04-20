@@ -73,6 +73,9 @@ CBUF_SRCS := src/lib/cbuf.c src/lib/lib.c
 #CBUF_OBJS := $(patsubst %.c, %.o, $(CBUF_SRCS))
 
 
+ECHO_CLIENT_NAME := bin/echo-client
+ECHO_CLIENT_SRCS := src/test/echo-client.c
+
 .PHONY: all config build run clean tag lines
 
 all: run
@@ -81,7 +84,7 @@ config:
 	@echo CFLAGS: $(CFLAGS)
 	@echo LDFLAGS: $(LDFLAGS)
 
-build: config $(TAPIP_NAME) #$(CBUF_NAME)
+build: config $(TAPIP_NAME) $(ECHO_CLIENT_NAME)
 
 $(TAPIP_NAME): $(TAPIP_OBJS)
 	@echo TAPIP_SRCS: $(TAPIP_SRCS)
@@ -92,6 +95,11 @@ $(CBUF_NAME): $(CBUF_SRCS)
 	@echo CBUF_SRCS:$(CBUF_SRCS)
 #	@echo CBUF_OBJS:$(CBUF_OBJS)
 	$(CC) -DCBUF_TEST -Isrc/include -o $@ $^ 
+
+
+$(ECHO_CLIENT_NAME): $(ECHO_CLIENT_SRCS)
+	@echo ECHO_CLIENT_SRCS: $(ECHO_CLIENT_SRCS)
+	$(CC) -o $@ $^ -pthread
 
 include Makefile.dep
 Makefile.dep: $(SRCS)

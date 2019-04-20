@@ -1,6 +1,8 @@
 *.o
 bin/tapip
 bin/cbuf
+bin/echo-client
 
 .vscode/
+Makefile
 tags
