@@ -13,8 +13,10 @@
 struct tcp {
 	unsigned short src;	/* source port */
 	unsigned short dst;	/* dest port */
+	
 	unsigned int seq;	/* sequence number */
 	unsigned int ackn;	/* acknowledgment number */
+
 #ifdef TCP_LITTLE_ENDIAN
 	unsigned short	reserved:4,
 			doff:4,	/* data offset(head length)in 32 bits long */
@@ -42,8 +44,10 @@ struct tcp {
 			fin:1;
 #endif
 	unsigned short window;
+
 	unsigned short checksum;
 	unsigned short urgptr;		/* urgent pointer */
+
 	unsigned char data[0];
 } __attribute__((packed));
 
@@ -56,35 +60,47 @@ struct tcp {
 
 enum tcp_state {
 	TCP_CLOSED = 1,
+	
 	TCP_LISTEN,
 	TCP_SYN_RECV,
 	TCP_SYN_SENT,
+	
 	TCP_ESTABLISHED,
+	
 	TCP_CLOSE_WAIT,
 	TCP_LAST_ACK,
 	TCP_FIN_WAIT1,
 	TCP_FIN_WAIT2,
 	TCP_CLOSING,
 	TCP_TIME_WAIT,
+	
 	TCP_MAX_STATE
 };
 
 struct tcp_sock {
 	struct sock sk;
+	
 	struct hlist_node bhash_list;	/* for bind hash table, e/lhash node is in sk */
 	unsigned int bhash;		/* bind hash value */
+	
 	int accept_backlog;		/* current entries of accept queue */
 	int backlog;			/* size of accept queue */
+	
 	struct list_head listen_queue;	/* waiting for second SYN+ACK of three-way handshake */
 	struct list_head accept_queue;	/* waiting for third ACK of three-way handshake */
 	struct list_head list;
+	
 	struct tcp_timer timewait;	/* TIME-WAIT TIMEOUT */
 	struct tapip_wait *wait_accept;
 	struct tapip_wait *wait_connect;
+	
 	struct tcp_sock *parent;
+	
 	unsigned int flags;
 	struct cbuf *rcv_buf;
+	
 	struct list_head rcv_reass;	/* list head of unordered reassembled tcp segments */
+	
 	/* transmission control block (RFC 793) */
 	unsigned int snd_una;	/* send unacknowledged */
 	unsigned int snd_nxt;	/* send next */
@@ -93,10 +109,12 @@ struct tcp_sock {
 	unsigned int snd_wl1;	/* seq for last window update */
 	unsigned int snd_wl2;	/* ack for last window update */
 	unsigned int iss;	/* initial send sequence number */
+	
 	unsigned int rcv_nxt;	/* receive next */
 	unsigned int rcv_wnd;	/* receive window */
 	unsigned int rcv_up;	/* receive urgent pointer */
 	unsigned int irs;	/* initial receive sequence number */
+	
 	unsigned int state;	/* connection state */
 };
 

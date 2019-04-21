@@ -37,9 +37,9 @@ void ip_recv_local(struct pkbuf *pkb)
 	case IP_P_TCP:
 		tcp_in(pkb);
 		break;
-	case IP_P_UDP:
-		udp_in(pkb);
-		break;
+	// case IP_P_UDP:
+	// 	udp_in(pkb);
+	// 	break;
 	default:
 		free_pkb(pkb);
 		ipdbg("unknown protocol");
@@ -51,11 +51,14 @@ void ip_recv_route(struct pkbuf *pkb)
 {
 	if (rt_input(pkb) < 0)
 		return;
+
 	/* Is this packet sent to us? */
 	if (pkb->pk_rtdst->rt_flags & RT_LOCALHOST) {
+		// local 
 		ip_recv_local(pkb);
 	} else {
 		ip_hton(pkb2ip(pkb));
+		// out
 		ip_forward(pkb);
 	}
 }

@@ -1,0 +1,15 @@
+
+
+to do
+
+pbkuf -> memepool
+
+TCP connection management -> multi core
+
+tapip ixy interface -> rx_bufs, tx_bufs    run to completion, one thread
+
+multi queue with RSS
+
+socket api -> tcp_sock api -> event driven api
+
+

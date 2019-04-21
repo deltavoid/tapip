@@ -32,13 +32,17 @@ struct ip {
 			ip_ver:4;	/* version */
 	unsigned char ip_tos;		/* type of service */
 	unsigned short ip_len;		/* total ip packet data length */
+	
 	unsigned short ip_id;		/* datagram id */
 	unsigned short ip_fragoff;	/* fragment offset(in 8-octet's) */
+	
 	unsigned char ip_ttl;		/* time to live, in gateway hops */
 	unsigned char ip_pro;		/* L4 protocol */
 	unsigned short ip_cksum;	/* header checksum */
+	
 	unsigned int ip_src;		/* source address */
 	unsigned int ip_dst;		/* dest address */
+	
 	unsigned char ip_data[0];	/* data field */
 } __attribute__((packed));
 

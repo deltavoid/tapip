@@ -48,6 +48,7 @@ void ip_send_dev(struct netdev *dev, struct pkbuf *pkb)
 	}
 }
 
+// ip xmit interface 
 /* Assert pkb is net-order & pkb->pk_pro == ETH_P_IP */
 void ip_send_out(struct pkbuf *pkb)
 {

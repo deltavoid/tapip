@@ -68,6 +68,7 @@ static void tcp_recv(struct pkbuf *pkb, struct ip *iphdr, struct tcp *tcphdr)
 	struct sock *sk;
 
 	tcp_segment_init(&seg, iphdr, tcphdr);
+	
 	/* Should we use net device to match a connection? */
 	sk = tcp_lookup_sock(iphdr->ip_src, iphdr->ip_dst,
 				tcphdr->src, tcphdr->dst);

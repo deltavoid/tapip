@@ -131,8 +131,8 @@ void rt_traverse(void)
 		return;
 	printf("Destination     Gateway         Genmask         Metric Iface\n");
 	list_for_each_entry(rt, &rt_head, rt_list) {
-		if (rt->rt_flags & RT_LOCALHOST)
-			continue;
+		// if (rt->rt_flags & RT_LOCALHOST)
+		// 	continue;
 		if (rt->rt_flags & RT_DEFAULT)
 			printf("default         ");
 		else

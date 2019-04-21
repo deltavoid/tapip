@@ -152,6 +152,11 @@ void tcp_unhash(struct sock *sk)
 	sk->hash = 0;
 }
 
+
+
+
+
+
 static _inline void tcp_pre_wait_connect(struct tcp_sock *tsk)
 {
 	tsk->wait_connect = &tsk->sk.sock->sleep;
@@ -375,6 +380,7 @@ static int tcp_recv_buf(struct sock *sk, char *buf, int len)
 		while (!((tsk->flags & TCP_F_PUSH) ||
 			(tsk->rcv_buf && CBUFUSED(tsk->rcv_buf)) ||
 			(rlen >= len))) {
+			
 			if (sleep_on(sk->recv_wait) < 0) {
 				ret = (rlen > 0) ? rlen : -1;
 				goto out;
@@ -438,6 +444,7 @@ struct sock *tcp_alloc_sock(int protocol)
 	
 	tsk->state = TCP_CLOSED;
 	tsk->rcv_wnd = TCP_DEFAULT_WINDOW;
+
 	list_init(&tsk->listen_queue);
 	list_init(&tsk->accept_queue);
 	list_init(&tsk->list);

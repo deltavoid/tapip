@@ -43,6 +43,7 @@ struct sock {
 	struct socket *sock;
 	struct sock_ops *ops;
 	struct rtentry *sk_dst;
+	
 	/*
 	 * FIXME: lock for recv_queue, or
 	 *        Should we add recv_queue into recv_wait,
@@ -50,8 +51,10 @@ struct sock {
 	 */
 	struct list_head recv_queue;
 	struct tapip_wait *recv_wait;
+	
 	unsigned int hash;	/* hash num for sock hash table lookup */
 	struct hlist_node hash_list;
+	
 	int refcnt;
 } __attribute__((packed));
 

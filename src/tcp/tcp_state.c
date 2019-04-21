@@ -280,6 +280,23 @@ static _inline void tcp_update_window(struct tcp_sock *tsk,
 		__tcp_update_window(tsk, seg);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // process an recv segment according to current state
 // the state machine: state * segment -> state (with operation) 
 /* Tcp state process method is implemented via RFC 793 #SEGMENT ARRIVE */
@@ -524,6 +541,7 @@ void tcp_process(struct pkbuf *pkb, struct tcp_segment *seg, struct sock *sk)
 	case TCP_FIN_WAIT1:
 	case TCP_FIN_WAIT2:
 		if (tcphdr->psh || seg->dlen > 0)
+		    // tcp text entry
 			tcp_recv_text(tsk, seg, pkb);
 		break;
 	/*

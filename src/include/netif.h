@@ -51,11 +51,13 @@ struct pkbuf {
 	struct list_head pk_list;	/* for ip fragment or arp waiting list */
 	unsigned short pk_pro;		/* ethernet packet type ID */
 	unsigned short pk_type;		/* packet hardware address type */
-	int pk_len;
-	int pk_refcnt;
+	int            pk_len;
+	int            pk_refcnt;
+	
 	struct netdev *pk_indev;
 	struct rtentry *pk_rtdst;
 	struct sock *pk_sk;
+	
 	unsigned char pk_data[0];
 } __attribute__((packed));
 
