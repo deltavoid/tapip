@@ -10,6 +10,10 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
+#include <stdint.h>
+#include <stddef.h>
+#include <time.h>
+
 
 const short PORT = 1234;
 #define MAX_BUF_SIZE 4096
@@ -27,6 +31,15 @@ void error(const char* msg)
     exit(1);
 }
 
+// returns a timestamp in nanoseconds
+// based on rdtsc on reasonably configured systems and is hence fast
+uint64_t monotonic_time() {
+	struct timespec timespec;
+	clock_gettime(CLOCK_MONOTONIC, &timespec);
+	return timespec.tv_sec * 1000 * 1000 * 1000 + timespec.tv_nsec;
+}
+
+
 void* sender(void* arg)
 {
     for (int i = 0; i < buf_size; i++)
@@ -36,12 +49,20 @@ void* sender(void* arg)
     for (int i = 0; i < requests; i++)
     {
         send_len = send(sock_fd, tx_buf, buf_size, 0);
-        usleep(10000);
+        usleep(1);
 
     }
        
     
     return NULL;
+}
+
+// bits/second
+double calc_speeed(uint64_t last_time/*nanoseconds*/, uint64_t now_time, uint64_t bytes)
+{
+    double interval = now_time - last_time;
+    double bits = bytes * 8;
+    double speed  = bits / interval * 1000 * 1000 * 1000;
 }
 
 int main(int argc, char** argv)
@@ -71,11 +92,18 @@ int main(int argc, char** argv)
     pthread_t tid;
     if  (pthread_create(&tid, NULL, sender, NULL) == -1)  error("pthread_create sender");
 
+    uint64_t last_time = monotonic_time();
     int recv_len = 0;
     int total_len = buf_size * requests;
     while (recv_len < total_len)
     {
-        recv_len += recv(sock_fd, rx_buf, buf_size, 0);
+        uint64_t l = recv(sock_fd, rx_buf, buf_size, 0);
+
+        uint64_t now_time = monotonic_time();
+        printf("speed: %lf bits/sec\n", calc_speeed(last_time, now_time, l));
+        last_time = now_time;
+
+        recv_len += l;
         printf("recv_len: %d\n", recv_len);
     }
     
