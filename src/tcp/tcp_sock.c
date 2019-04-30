@@ -368,6 +368,7 @@ static int tcp_recv_buf(struct sock *sk, char *buf, int len)
 	while (rlen < len) {
 		/* fill user buffer */
 		curlen = read_cbuf(tsk->rcv_buf, buf + rlen, len - rlen);
+		dbg("curlen: %d", curlen);
 		/* update windown, send WINUP? */
 		tsk->rcv_wnd += curlen;
 		rlen += curlen;

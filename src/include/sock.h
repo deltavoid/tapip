@@ -36,12 +36,17 @@ struct sock_ops {
 	struct sock *(*accept)(struct sock *);
 };
 
+typedef void (*recv_handler_t)(void* arg, struct sock* sk, void* buf, int len);
+
 /* PF_INET family sock structure */
 struct sock {
 	unsigned char protocol;	/* l4 protocol: tcp, udp */
 	struct sock_addr sk_addr;
 	struct socket *sock;
 	struct sock_ops *ops;
+    recv_handler_t recv_handler;
+	void* recv_arg;
+
 	struct rtentry *sk_dst;
 	/*
 	 * FIXME: lock for recv_queue, or

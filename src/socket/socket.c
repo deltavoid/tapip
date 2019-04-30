@@ -216,6 +216,12 @@ out:
 	return ret;
 }
 
+void _set_recv_handler(struct sock* sk, recv_handler_t func, void* arg)
+{
+	sk->recv_handler = func;
+	sk->recv_arg = arg;
+}
+
 // init entry
 void socket_init(void)
 {

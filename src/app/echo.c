@@ -17,6 +17,12 @@ void error(const char* msg)
     //exit(1);
 }
 
+extern void _set_recv_handler(struct sock* sk, recv_handler_t func, void* arg);
+
+void echo_recv_handler(void* arg, struct sock* sk, void* buf, int len)
+{
+    sk->ops->send_buf(sk, buf, len, NULL);
+}
 
 int echo()
 {
@@ -41,18 +47,24 @@ int echo()
     if  ((newfd =  _accept(listenfd, &skaddr)) == NULL) error("accept");
 
 
-    int recv_len = 0, send_len = 0;
-    int total_recv = 0, total_send = 0;
-    while ((recv_len = _read(newfd, buf, BUF_SIZE)) > 0)
-    {
-        send_len = _write(newfd, buf, recv_len);
-        dbg("recv: %d  send: %d", recv_len, send_len);
+    // int recv_len = 0, send_len = 0;
+    // int total_recv = 0, total_send = 0;
+    // while ((recv_len = _read(newfd, buf, BUF_SIZE)) > 0)
+    // {
+    //     send_len = _write(newfd, buf, recv_len);
+    //     dbg("recv: %d  send: %d", recv_len, send_len);
         
-        total_recv += recv_len;  total_send += send_len;
-        dbg("total recv: %d  total send: %d", total_recv, total_send);
+    //     total_recv += recv_len;  total_send += send_len;
+    //     dbg("total recv: %d  total send: %d", total_recv, total_send);
         
 
-    }
+    // }
+    
+    _set_recv_handler(newfd->sk, echo_recv_handler, NULL);
+    sleep(10000);
+
+
+    
 
     _close(newfd);
 

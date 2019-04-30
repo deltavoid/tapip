@@ -6,6 +6,8 @@
 #include "tcp.h"
 #include "ip.h"
 
+#include "cbuf.h"
+
 const char *tcp_state_string[TCP_MAX_STATE] = {
 	"Unknown tcp state: 0",
 	"CLOSED",
@@ -279,6 +281,16 @@ static _inline void tcp_update_window(struct tcp_sock *tsk,
 			(tsk->snd_wl1 == seg->seq && tsk->snd_wl2 <= seg->ack)))
 		__tcp_update_window(tsk, seg);
 }
+
+
+
+
+
+#define TCP_RECV_BUF_LEN 4096
+static char tcp_recv_buf[TCP_RECV_BUF_LEN];
+
+
+
 
 // process an recv segment according to current state
 // the state machine: state * segment -> state (with operation) 
@@ -583,5 +595,23 @@ drop:
 	if (tsk->flags & (TCP_F_ACKNOW|TCP_F_ACKDELAY))
 		tcp_send_ack(tsk, seg);
 	free_pkb(pkb);
+
+	// process user program
+	int curlen = 0;
+	while ((curlen = read_cbuf(tsk->rcv_buf, tcp_recv_buf, TCP_RECV_BUF_LEN)) > 0)
+	{
+		tsk->rcv_wnd += curlen;
+		dbg("curlen: %d", curlen);
+
+        if  (tsk->sk.recv_handler)
+		{   tsk->sk.recv_handler(tsk->sk.recv_arg, &tsk->sk, tcp_recv_buf, curlen);
+		    //dbg("recv_handler fin");
+		}
+	}
+
+	// if ((tsk->flags & TCP_F_PUSH) &&
+	// 	!(tsk->rcv_buf && CBUFUSED(tsk->rcv_buf))) {
+	// 	tsk->flags &= ~TCP_F_PUSH;
+	// }
 }
 

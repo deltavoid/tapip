@@ -145,7 +145,7 @@ tcp_state.o: src/tcp/tcp_state.c src/include/lib.h src/include/netif.h \
  src/include/compile.h src/include/list.h src/include/tcp.h \
  src/include/sock.h src/include/netif.h src/include/wait.h \
  src/include/lib.h src/include/tcp_timer.h src/include/ip.h \
- src/include/ether.h
+ src/include/ether.h src/include/cbuf.h
 tcp_text.o: src/tcp/tcp_text.c src/include/tcp.h src/include/sock.h \
  src/include/netif.h src/include/compile.h src/include/list.h \
  src/include/wait.h src/include/lib.h src/include/tcp_timer.h \
