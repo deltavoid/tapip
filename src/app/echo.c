@@ -44,7 +44,7 @@ int echo()
     if  (_listen(listenfd, BACKLOG) == -1)  error("listen");
 
     struct socket* newfd;
-    if  ((newfd =  _accept(listenfd, &skaddr)) == NULL) error("accept");
+    //if  ((newfd =  _accept(listenfd, &skaddr)) == NULL) error("accept");
 
 
     // int recv_len = 0, send_len = 0;
@@ -60,11 +60,15 @@ int echo()
 
     // }
     
-    _set_recv_handler(newfd->sk, echo_recv_handler, NULL);
-    sleep(10000);
-
+    // _set_recv_handler(newfd->sk, echo_recv_handler, NULL);
+    // sleep(10000);
 
     
+    while ((newfd =  _accept(listenfd, &skaddr)) != NULL)
+    {
+        _set_recv_handler(newfd->sk, echo_recv_handler, NULL);
+        //sleep(1);
+    }
 
     _close(newfd);
 

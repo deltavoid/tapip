@@ -609,9 +609,9 @@ drop:
 		}
 	}
 
-	// if ((tsk->flags & TCP_F_PUSH) &&
-	// 	!(tsk->rcv_buf && CBUFUSED(tsk->rcv_buf))) {
-	// 	tsk->flags &= ~TCP_F_PUSH;
-	// }
+	if ((tsk->flags & TCP_F_PUSH) &&
+		!(tsk->rcv_buf && CBUFUSED(tsk->rcv_buf))) {
+		tsk->flags &= ~TCP_F_PUSH;
+	}
 }
 
