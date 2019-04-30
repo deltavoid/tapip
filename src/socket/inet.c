@@ -28,7 +28,7 @@ static struct inet_type inet_type_table[SOCK_MAX] = {
 	}
 };
 
-static int inet_socket(struct socket *sock, int protocol)
+int inet_socket(struct socket *sock, int protocol)
 {
 	struct inet_type *inet;
 	struct sock *sk;
@@ -58,7 +58,7 @@ static int inet_socket(struct socket *sock, int protocol)
 	return 0;
 }
 
-static int inet_close(struct socket *sock)
+ int inet_close(struct socket *sock)
 {
 	struct sock *sk = sock->sk;
 	int err = -1;
@@ -75,7 +75,7 @@ static int inet_close(struct socket *sock)
 	return err;
 }
 
-static int inet_accept(struct socket *sock,
+ int inet_accept(struct socket *sock,
 		struct socket *newsock, struct sock_addr *skaddr)
 {
 	struct sock *sk = sock->sk;
@@ -97,7 +97,7 @@ out:
 	return err;
 }
 
-static int inet_listen(struct socket *sock, int backlog)
+ int inet_listen(struct socket *sock, int backlog)
 {
 	struct sock *sk = sock->sk;
 	int err = -1;
@@ -109,7 +109,7 @@ static int inet_listen(struct socket *sock, int backlog)
 	return err;
 }
 
-static int inet_bind(struct socket *sock, struct sock_addr *skaddr)
+ int inet_bind(struct socket *sock, struct sock_addr *skaddr)
 {
 	struct sock *sk = sock->sk;
 	int err = -1;
@@ -144,7 +144,7 @@ err_out:
 	return err;
 }
 
-static int inet_connect(struct socket *sock, struct sock_addr *skaddr)
+ int inet_connect(struct socket *sock, struct sock_addr *skaddr)
 {
 	struct sock *sk = sock->sk;
 	int err = -1;
@@ -173,7 +173,7 @@ out:
 	return err;
 }
 
-static int inet_read(struct socket *sock, void *buf, int len)
+ int inet_read(struct socket *sock, void *buf, int len)
 {
 	struct sock *sk = sock->sk;
 	int ret = -1;
@@ -185,7 +185,7 @@ static int inet_read(struct socket *sock, void *buf, int len)
 	return ret;
 }
 
-static int inet_write(struct socket *sock, void *buf, int len)
+ int inet_write(struct socket *sock, void *buf, int len)
 {
 	struct sock *sk = sock->sk;
 	int ret = -1;
@@ -194,7 +194,7 @@ static int inet_write(struct socket *sock, void *buf, int len)
 	return ret;
 }
 
-static int inet_send(struct socket *sock, void *buf, int size,
+ int inet_send(struct socket *sock, void *buf, int size,
 			struct sock_addr *skaddr)
 {
 	struct sock *sk = sock->sk;
@@ -203,7 +203,7 @@ static int inet_send(struct socket *sock, void *buf, int size,
 	return -1;
 }
 
-static struct pkbuf *inet_recv(struct socket *sock)
+ struct pkbuf *inet_recv(struct socket *sock)
 {
 	struct sock *sk = sock->sk;
 	struct pkbuf *pkb = NULL;
@@ -233,8 +233,8 @@ struct socket_ops inet_ops = {
 
 void inet_init(void)
 {
-	raw_init();
-	udp_init();
+	//raw_init();
+	//udp_init();
 	tcp_init();
 }
 

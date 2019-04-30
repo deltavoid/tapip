@@ -4,6 +4,7 @@ bin/cbuf
 bin/echo-client
 
 .vscode/
+.idea
 tags
 
 tcpdump.txt

@@ -44,8 +44,11 @@ struct socket {
 	unsigned int family;	/* socket family: always AF_INET */
 	unsigned int type;	/* l4 protocol type: stream, dgram, raw */
 	struct tapip_wait sleep;
+
 	struct socket_ops *ops;
+
 	struct sock *sk;
+
 	int refcnt;		/* refer to linux file::f_count */
 };
 

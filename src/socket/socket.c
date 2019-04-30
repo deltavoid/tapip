@@ -10,7 +10,7 @@
  * socket state manage!
  */
 
-LIST_HEAD(listen_head);	/* listening sock list */
+//LIST_HEAD(listen_head);	/* listening sock list */
 
 static void __free_socket(struct socket *sock)
 {
@@ -62,8 +62,11 @@ struct socket *_socket(int family, int type, int protocol)
 		goto out;
 	/* only support AF_INET */
 	sock->ops = &inet_ops;
+    //sock->ops = NULL;
+
 	/* assert sock->ops->socket */
-	if (sock->ops->socket(sock, protocol) < 0) {
+	//if (sock->ops->socket(sock, protocol) < 0) {
+	if  (inet_socket(sock, protocol) < 0) {
 		free_socket(sock);
 		sock = NULL;
 	}
@@ -78,8 +81,9 @@ int _listen(struct socket *sock, int backlog)
 	if (!sock || backlog < 0)
 		goto out;
 	get_socket(sock);
-	if (sock->ops)
-		err = sock->ops->listen(sock, backlog);
+	// if (sock->ops)
+	// 	err = sock->ops->listen(sock, backlog);
+	err = inet_listen(sock, backlog);
 	free_socket(sock);
 out:
 	return err;
@@ -94,7 +98,7 @@ void _close(struct socket *sock)
 	 * in which case there is no method to notify app the interrupt.
 	 * If sock is waited on recv/accept, we wake it up first!
 	 */
-	wait_exit(&sock->sleep);
+	//wait_exit(&sock->sleep);
 	free_socket(sock);
 }
 
@@ -104,9 +108,10 @@ int _connect(struct socket *sock, struct sock_addr *skaddr)
 	if (!sock || !skaddr)
 		goto out;
 	get_socket(sock);
-	if (sock->ops) {
-		err = sock->ops->connect(sock, skaddr);
-	}
+	// if (sock->ops) {
+	// 	err = sock->ops->connect(sock, skaddr);
+	// }
+	err = inet_connect(sock, skaddr);
 	free_socket(sock);
 out:
 	return err;
@@ -118,8 +123,9 @@ int _bind(struct socket *sock, struct sock_addr *skaddr)
 	if (!sock || !skaddr)
 		goto out;
 	get_socket(sock);
-	if (sock->ops)
-		err = sock->ops->bind(sock, skaddr);
+	// if (sock->ops)
+	// 	err = sock->ops->bind(sock, skaddr);
+	err = inet_bind(sock, skaddr);
 	free_socket(sock);
 out:
 	return err;
@@ -138,8 +144,9 @@ struct socket *_accept(struct socket *sock, struct sock_addr *skaddr)
 		goto out_free;
 	newsock->ops = sock->ops;
 	/* real accepting process */
-	if (sock->ops)
-		err = sock->ops->accept(sock, newsock, skaddr);
+	// if (sock->ops)
+	// 	err = sock->ops->accept(sock, newsock, skaddr);
+	err = inet_accept(sock, newsock, skaddr);
 	if (err < 0) {
 		free(newsock);
 		newsock = NULL;
@@ -152,29 +159,31 @@ out:
 
 int _send(struct socket *sock, void *buf, int size, struct sock_addr *skaddr)
 {
-	int err = -1;
-	if (!sock || !buf || size <= 0 || !skaddr)
-		goto out;
-	get_socket(sock);
-	if (sock->ops)
-		err = sock->ops->send(sock, buf, size, skaddr);
-	free_socket(sock);
-out:
-	return err;
+	// int err = -1;
+	// if (!sock || !buf || size <= 0 || !skaddr)
+	// 	goto out;
+	// get_socket(sock);
+	// if (sock->ops)
+	// 	err = sock->ops->send(sock, buf, size, skaddr);
+	// free_socket(sock);
+// out:
+// 	return err;
+    return -1;
 }
 
 struct pkbuf *_recv(struct socket *sock)
 {
-	struct pkbuf *pkb = NULL;
-	if (!sock)
-		goto out;
-	/* get reference for _close() safe */
-	get_socket(sock);
-	if (sock->ops)
-		pkb = sock->ops->recv(sock);
-	free_socket(sock);
-out:
-	return pkb;
+	// struct pkbuf *pkb = NULL;
+	// if (!sock)
+	// 	goto out;
+	// /* get reference for _close() safe */
+	// get_socket(sock);
+	// if (sock->ops)
+	// 	pkb = sock->ops->recv(sock);
+	// free_socket(sock);
+// out:
+// 	return pkb;
+    return -1;
 }
 
 int _write(struct socket *sock, void *buf, int len)
@@ -184,8 +193,9 @@ int _write(struct socket *sock, void *buf, int len)
 		goto out;
 	/* get reference for _close() safe */
 	get_socket(sock);
-	if (sock->ops)
-		ret = sock->ops->write(sock, buf, len);
+	// if (sock->ops)
+	// 	ret = sock->ops->write(sock, buf, len);
+    ret = inet_write(sock, buf, len);
 	free_socket(sock);
 out:
 	return ret;
@@ -198,8 +208,9 @@ int _read(struct socket *sock, void *buf, int len)
 		goto out;
 	/* get reference for _close() safe */
 	get_socket(sock);
-	if (sock->ops)
-		ret = sock->ops->read(sock, buf, len);
+	// if (sock->ops)
+	// 	ret = sock->ops->read(sock, buf, len);
+	ret = inet_read(sock, buf, len);
 	free_socket(sock);
 out:
 	return ret;
